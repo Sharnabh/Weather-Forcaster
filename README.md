@@ -1,5 +1,6 @@
 # Weather-Forcaster
 ### Project Report: Weather Forecaster Application
+***Code by Sharnabh Banerjee***
 
 ---
 
