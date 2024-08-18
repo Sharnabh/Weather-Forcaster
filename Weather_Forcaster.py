@@ -16,7 +16,7 @@ root.geometry("900x500+300+200")
 root.resizable(False, False)
 search_history = []  # List to store search history
 data_window = None
-api_key = "8c4f33fcb667fe6ced0a28a0dab961e0"
+api_key = "" # Add Your Open Weather Map API Key
 
 # Function to save weather data to CSV
 def save_weather_to_csv(city, weather_data):
