@@ -16,7 +16,7 @@ root.geometry("900x500+300+200")
 root.resizable(False, False)
 search_history = []  # List to store search history
 data_window = None
-api_key = ""  # Put your api key from Open Weather API
+api_key = "8c4f33fcb667fe6ced0a28a0dab961e0"
 
 # Function to save weather data to CSV
 def save_weather_to_csv(city, weather_data):
@@ -39,7 +39,7 @@ def save_weather_to_csv(city, weather_data):
 def getWeather():
     city = textfield.get()
 
-    geolocator = Nominatim(user_agent="geoapiExercises")
+    geolocator = Nominatim(user_agent="Weather_Forecaster")
     location = geolocator.geocode(city)
     obj = TimezoneFinder()
     timezone = obj.certain_timezone_at(lat=location.latitude, lng=location.longitude)
@@ -163,16 +163,22 @@ def load_resized_image(image_path, size):
 # Fetch Location suggestions
 def fetch_location_suggestions(query):
     try:
-        api_key = "83ffcb3417c635eef89aaa10d085208a"
         api_url = f"http://api.openweathermap.org/geo/1.0/direct?q={query}&limit=5&appid={api_key}"
         response = requests.get(api_url)
         suggestions = response.json()
-        
-        # Format the suggestions
-        return [f"{item['name']}, {item.get('state', '')}, {item['country']}" for item in suggestions]
+
+        # Check if the response is a list (which it should be if successful)
+        if isinstance(suggestions, list):
+            # Format the suggestions
+            return [f"{item['name']}, {item.get('state', '')}, {item['country']}" for item in suggestions]
+        else:
+            # If the response is not a list, return an empty list or handle the error
+            print("Unexpected API response format:", suggestions)
+            return []
     except Exception as e:
         print("Error fetching location suggestions:", e)
         return []
+
     
 def update_suggestions(event):
     query = textfield.get()
